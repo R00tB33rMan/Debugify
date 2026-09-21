@@ -21,7 +21,7 @@ public class GameRendererMixin {
 			method = "checkEntityPostEffect",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/GameRenderer;setPostEffect(Lnet/minecraft/resources/Identifier;)V"
+					target = "Lnet/minecraft/client/renderer/GameRenderer;setSpectatedEntityPostEffect(Lnet/minecraft/resources/Identifier;)V"
 			)
 	)
 	private boolean thirdPersonCheck(GameRenderer renderer, Identifier id) {

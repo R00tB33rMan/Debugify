@@ -13,8 +13,9 @@ import dev.isxander.debugify.Debugify;
 import dev.isxander.debugify.fixes.BugFix;
 import dev.isxander.debugify.fixes.FixCategory;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSize;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
@@ -31,7 +32,14 @@ import org.spongepowered.asm.mixin.injection.At;
  **/
 @BugFix(id = "MC-8187", category = FixCategory.GAMEPLAY, env = BugFix.Env.SERVER, modConflicts = "flwr-8187", description = "Two-by-two arrangements of jungle or spruce saplings cannot grow when there are adjacent blocks located north or west of the sapling formation")
 @Mixin(TreeFeature.class)
-public class TreeFeatureMixin {
+public abstract class TreeFeatureMixin {
+	/**
+	 * 26.3 folded TreeConfiguration into TreeFeature itself, which is now a record, and dropped
+	 * the config argument from getMaxFreeTreeHeight; the minimum size is read off the feature.
+	 */
+	@Shadow
+	public abstract FeatureSize minimumSize();
+
 	/**
 	 * Corrects the starting value if the trunk's minimum size is {@literal 1}
 	 * and the starting value is {@literal -1} by returning {@literal 0}.
@@ -49,11 +57,10 @@ public class TreeFeatureMixin {
 	@ModifyExpressionValue(method = "getMaxFreeTreeHeight", at = @At("MIXINEXTRAS:EXPRESSION"))
 	private int fixOffsetNew(
 			int start,
-			@Local(argsOnly = true, name = "maxTreeHeight") int maxTreeHeight,
-			@Local(argsOnly = true, name = "config") TreeConfiguration config
+			@Local(argsOnly = true, name = "maxTreeHeight") int maxTreeHeight
 	) {
 		//  Roughly height == 0 && trunk == 1
-		if (Debugify.isGameplayFixesEnabled() && start == -1 && config.minimumSize.getSizeAtHeight(maxTreeHeight, 0) == 1) {
+		if (Debugify.isGameplayFixesEnabled() && start == -1 && minimumSize().getSizeAtHeight(maxTreeHeight, 0) == 1) {
 			return 0;
 		}
 		return start;

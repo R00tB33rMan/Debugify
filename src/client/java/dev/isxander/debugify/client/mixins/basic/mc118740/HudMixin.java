@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * Taken from MoulberrysTweaks
- * https://github.com/Moulberry/MoulberrysTweaks
+ * <a href="https://github.com/Moulberry/MoulberrysTweaks">...</a>
  * under MIT license
  *
  * @author Moulberry
