@@ -27,7 +27,7 @@ public class DolphinCarryingItemLayerMixin {
 			)
 	)
 	private void flipItem(CallbackInfo ci, @Local(argsOnly = true, name = "poseStack") PoseStack poseStack) {
-		poseStack.mulPose(Axis.ZP.rotationDegrees(180F));
+		poseStack.rotateDegrees(Axis.ZP, 180F);
 		poseStack.translate(0F, -0.4F, 0F); // Eyeballed value to make items not float
 	}
 }

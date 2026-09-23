@@ -39,7 +39,7 @@ public class SquidRendererMixin<T extends Squid> {
 		String name = squidEntity.getName().getString();
 		if ("Dinnerbone".equals(name) || "Grumm".equals(name)) {
 			poseStack.translate(0.0F, squidEntity.getBbHeight() + 0.1F, 0.0F);
-			poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+			poseStack.rotateDegrees(Axis.XP, 180.0F);
 		}
 	}
 }

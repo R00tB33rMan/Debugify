@@ -8,21 +8,23 @@ package dev.isxander.debugify.client.mixins.basic.mc127970;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.isxander.debugify.fixes.BugFix;
 import dev.isxander.debugify.fixes.FixCategory;
-import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.FirstPersonHandsAndItemsRenderer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.injection.At;
 
 @BugFix(id = "MC-127970", category = FixCategory.BASIC, env = BugFix.Env.CLIENT, description = "Using Riptide on a trident with an item in your off-hand causes visual glitch with said item")
-@Mixin(ItemInHandRenderer.class)
+@Mixin(FirstPersonHandsAndItemsRenderer.class)
 public class ItemInHandRendererMixin {
 	@ModifyExpressionValue(
 			method = "submitArmWithItem",
 			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/client/player/AbstractClientPlayer;isAutoSpinAttack()Z"
+					value = "FIELD",
+					opcode = Opcodes.GETFIELD,
+					target = "Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;isAutoSpinAttack:Z"
 			)
 	)
 	private boolean isUsingRiptideHand(boolean original, @Local(argsOnly = true, name = "itemStack") ItemStack itemStack) {

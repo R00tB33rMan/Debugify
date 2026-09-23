@@ -20,7 +20,7 @@ public class CrashReportMixin {
 	@Definition(id = "appendToCrashReportString", method = "Lnet/minecraft/SystemReport;appendToCrashReportString(Ljava/lang/StringBuilder;)V")
 	@Expression("this.systemReport.appendToCrashReportString(?)")
 	@Inject(method = "getDetails(Ljava/lang/StringBuilder;)V", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private void appendCrashReport(StringBuilder sb, CallbackInfo ci) {
-		CrashReportInjector.addDetailsToCrashReport(sb);
+	private void appendCrashReport(StringBuilder builder, CallbackInfo ci) {
+		CrashReportInjector.addDetailsToCrashReport(builder);
 	}
 }

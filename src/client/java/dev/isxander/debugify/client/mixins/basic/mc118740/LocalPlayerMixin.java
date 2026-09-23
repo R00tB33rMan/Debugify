@@ -11,14 +11,10 @@ import dev.isxander.debugify.fixes.BugFix;
 import dev.isxander.debugify.fixes.FixCategory;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Taken from <a href="https://github.com/Moulberry/MoulberrysTweaks">MoulberrysTweaks</a>
@@ -33,11 +29,6 @@ public abstract class LocalPlayerMixin extends Player implements LocalPlayerDuck
 
 	public LocalPlayerMixin(Level level, GameProfile gameProfile) {
 		super(level, gameProfile);
-	}
-
-	@Inject(method = "swing", at = @At("HEAD"))
-	public void swing(InteractionHand hand, CallbackInfo ci) {
-		this.visualAttackStrengthTicker = 0;
 	}
 
 	@Override

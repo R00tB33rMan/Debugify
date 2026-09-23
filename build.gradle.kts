@@ -22,7 +22,7 @@ plugins {
 val minecraftVersion = libs.versions.minecraft.get()
 
 group = "dev.isxander"
-version = "26.2.0.0"
+version = "26.3.0.0"
 base.archivesName = "debugify"
 
 java {
@@ -70,7 +70,7 @@ dependencies {
 
 val bugsList = bugs.parseBugs(providers.fileContents(rootProject.layout.projectDirectory.file(".bugs")).asText)
 
-val minecraftVersionRange = "[26.2]"
+val minecraftVersionRange = "[26.3]"
 val supportedMinecraftVersions = manifests.minecraftReleasesMatching(minecraftVersionRange)
 
 val modManifest = manifests.fabricModJson {

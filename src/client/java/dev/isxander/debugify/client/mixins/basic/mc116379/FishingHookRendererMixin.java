@@ -24,7 +24,7 @@ public class FishingHookRendererMixin {
 			method = "extractRenderState(Lnet/minecraft/world/entity/projectile/FishingHook;Lnet/minecraft/client/renderer/entity/state/FishingHookRenderState;F)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/entity/player/Player;getAttackAnim(F)F"
+					target = "Lnet/minecraft/world/entity/player/Player;getSwingAnimation(F)F"
 			)
 	)
 	private float modifyHandSwingProgress(float handSwingProgress, FishingHook entity) {
