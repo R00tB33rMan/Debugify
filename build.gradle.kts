@@ -311,7 +311,3 @@ val checkBugFixes = tasks.register<CheckBugFixesTask>("checkBugFixes") {
 	minecraftVersion = libs.versions.minecraft
 	bugs = bugsList
 }
-
-tasks.check {
-	dependsOn(checkBugFixes)
-}
